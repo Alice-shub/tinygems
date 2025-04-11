@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiny Stones</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Bracelets</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+  <header class="site-header">
+    <h1 class="logo">Tiny Gems</h1>
+    <p class="tagline">Mini gemstone bracelets, Handcrafted with Love! 🥰❤️</p>
+  </header>
+  <section class="birthstones">
+    <section class="about">
+        <h2>About Tiny Gems</h2>
+        <p>
+          Tiny Gems was born out of a love for the little things 🌸. Each bracelet is delicately handmade with real gemstones and finished with Sterling Silver or real gold — created to bring a little sparkle to your everyday.
+        </p>
+        <p>
+          Inspired by birthstones and the magic of tiny treasures, Tiny Gems is for those who adore minimal, meaningful jewelry that carries a story ✨
+        </p>
+        <img src="images/handmade.jpg" alt="Handmade bracelet process" class="about-photo" />
+      </section>
+    <h2>Bracelets by Birth Month</h2>
+    <!-- List Bracelets In Bracelet-Grit Section -->
+    <div class="bracelet-grid">
+          <div class="bracelet">
+            <img src="images/garnet-bracelet.jpg" alt="Garnet bracelet" />
+            <h3>January – Garnet</h3>
+            <p>£38</p>
+            <p class="description">Garnet Crafted with Sterling Silver for lasting beauty and quality. Perfect for your January Birthstone!</p>
+            <button class="add-to-cart" onclick="addToCart('Garnet Bracelet', 38)">
+                Add to Cart
+                <span class="caption">I wanna be yours!❤️</span> <!-- My cute caption inside the button -->
+            </button>
+            <!-- Hidden confirmation message -->
+            <div id="confirmation" style="display:none;">Item added to your cart! 😍</div>
+          </div>
+          <div class="bracelet">
+            <img src="images/amethyst-bracelet.jpg" alt="Amethyst bracelet" />
+            <h3>February – Amethyst</h3>
+            <p>£38</p>
+            <p class="description">Delicate Amethyst beads paired with Sterling Silver. Perfect for February-born dreamers 💜</p>
+            <button class="add-to-cart" onclick="addToCart('Amethyst Bracelet', 40)">
+              Add to Cart
+              <span class="caption">I wanna be yours!❤️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+  </section>
+  <script>
+    function addToCart(itemName, price) {
+      const confirmation = document.createElement('div');
+      confirmation.textContent = `${itemName} (£${price}) added to your cart! 😍`;
+      confirmation.classList.add('confirmation-popup');
+      document.body.appendChild(confirmation);
+  
+      setTimeout(() => {
+        confirmation.remove();
+      }, 2000);
+    }
+  </script>
+   <section class="contact">
+    <h2>Contact Us</h2>
+    <form action="#" method="POST">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required />
+  
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+  
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="5" placeholder="Tell us more..." required></textarea>
+  
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+<footer class="site-footer">
+    <p>&copy; 2025 Tiny Gems ✨ Handcrafted with love & sparkle 💖</p>
+  </footer>
+</body>
+</html>
