@@ -16,6 +16,20 @@
           <li><a href="#">Contact</a></li>
         </ul>
       </nav>
+      <!-- Shopping Cart Here! -->
+      <div class="bracelet-box" onclick="toggleCart()">
+        <div class="box-lid"></div>
+        <div class="box-base">
+          <span class="box-count" id="cart-count">0</span>
+          <span class="box-label">Mine</span> <!-- This is the cart label -->
+        </div>
+      </div>
+      
+      <div id="cart-popup">
+        <ul id="cart-items"></ul>
+        <button onclick="checkout()" class="checkout-btn">Checkout</button>
+      </div>  
+      
   <header class="site-header">
     <h1 class="logo">Tiny Gems</h1>
     <p class="tagline">Mini gemstone bracelets, Handcrafted with Love! 🥰❤️</p>
@@ -89,5 +103,44 @@
 <footer class="site-footer">
     <p>&copy; 2025 Tiny Gems ✨ Handcrafted with love & sparkle 💖</p>
   </footer>
+
+  <script>
+    let cart = [];
+    const cartCount = document.getElementById("cart-count");
+    const box = document.querySelector(".bracelet-box");
+    const cartPopup = document.getElementById("cart-popup");
+    const cartItems = document.getElementById("cart-items");
+    
+    function addToCart(itemName, itemPrice) {
+      cart.push({ name: itemName, price: itemPrice });
+      updateCartCount();
+      animateBox();
+      updateCartDisplay();
+    }
+    
+    function updateCartCount() {
+      cartCount.textContent = cart.length;
+    }
+    
+    function animateBox() {
+      box.classList.add("open");
+      setTimeout(() => box.classList.remove("open"), 500);
+    }
+    
+    function toggleCart() {
+      cartPopup.classList.toggle("visible");
+    }
+    
+    function updateCartDisplay() {
+      cartItems.innerHTML = '';
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - £${item.price}`;
+        cartItems.appendChild(li);
+      });
+    }
+    </script>
+
+
 </body>
 </html>

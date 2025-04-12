@@ -384,3 +384,161 @@ body {
   #checkout-button:hover {
     background-color: #be7272;
   }
+
+  .bracelet-box {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .box-lid {
+    width: 50px;
+    height: 10px;
+    background-color: #d8a7b1;
+    border-radius: 6px 6px 0 0;
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+  }
+  
+  .box-base {
+    width: 50px;
+    height: 40px;
+    background-color: #ffb6c1;
+    text-align: center;
+    position: relative;
+    border-radius: 0 0 8px 8px;
+    font-size: 24px;
+    line-height: 40px;
+  }
+  
+  
+  .bracelet-box.open .box-lid {
+    transform: rotateX(60deg);
+  }
+  
+  /* Cart popup */
+  #cart-popup {
+    position: fixed;
+    top: 70px;
+    right: 30px;
+    background: #fff;
+    padding: 15px;
+    border: 2px solid #d8a7b1;
+    border-radius: 12px;
+    max-width: 200px;
+    z-index: 999;
+    display: none;
+  }
+  
+  #cart-popup.visible {
+    display: block;
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+
+  #cart-count {
+    background: hotpink;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 6px 6px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+  }
+
+  .bracelet-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 40px;
+    z-index: 1000;
+    cursor: pointer;
+  }
+  
+  .box-lid {
+    width: 60px;
+    height: 15px;
+    background: linear-gradient(to bottom, #b388eb, #d5b3ff);
+    border-radius: 6px 6px 0 0;
+    transition: transform 0.4s ease;
+    transform-origin: bottom center;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .box-base {
+    width: 60px;
+    height: 30px;
+    background: #e6ccff;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .box-count {
+    background: deeppink;
+    color: rgb(232, 136, 182);
+    font-size: 12px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+  }
+  
+  .bracelet-box.open .box-lid {
+    transform: rotateX(65deg);
+  }
+
+  .box-label {
+    position: absolute;
+    bottom: -1px;
+    left: 40%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: hsl(332, 80%, 37%);
+    font-weight: bold;
+    font-family: 'Cursive', Gill Sans;
+    pointer-events: none;
+  }
+  
+  .checkout-btn {
+    background-color: #ff9aa2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .checkout-btn:hover {
+    background-color: #f76587;
+  }
+  
+  
