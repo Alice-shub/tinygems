@@ -3,144 +3,394 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tiny Stones</title>
+  <title>Tiny Gems</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Quick CSS for popup animation */
+    .confirmation-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ffccf2;
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: pop 0.5s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  </style>
 </head>
-<body>
-    <nav class="main-nav">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Bracelets</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-      <!-- Shopping Cart Here! -->
-      <div class="bracelet-box" onclick="toggleCart()">
-        <div class="box-lid"></div>
-        <div class="box-base">
-          <span class="box-count" id="cart-count">0</span>
-          <span class="box-label">Mine</span> <!-- This is the cart label -->
-        </div>
-      </div>
-      
-      <div id="cart-popup">
-        <ul id="cart-items"></ul>
-        <button onclick="checkout()" class="checkout-btn">Checkout</button>
-      </div>  
-      
-  <header class="site-header">
-    <h1 class="logo">Tiny Gems</h1>
-    <p class="tagline">Mini gemstone bracelets, Handcrafted with Love! 🥰❤️</p>
-  </header>
-  <section class="birthstones">
-    <section class="about">
-        <h2>About Tiny Gems</h2>
-        <p>
-          Tiny Gems was born out of a love for the little things 🌸. Each bracelet is delicately handmade with real gemstones and finished with Sterling Silver or real gold — created to bring a little sparkle to your everyday.
-        </p>
-        <p>
-          Inspired by birthstones and the magic of tiny treasures, Tiny Gems is for those who adore minimal, meaningful jewelry that carries a story ✨
-        </p>
-        <img src="images/handmade.jpg" alt="Handmade bracelet process" class="about-photo" />
-      </section>
-    <h2>Bracelets by Birth Month</h2>
-    <!-- List Bracelets In Bracelet-Grit Section -->
-    <div class="bracelet-grid">
-          <div class="bracelet">
-            <img src="images/garnet-bracelet.jpg" alt="Garnet bracelet" />
-            <h3>January – Garnet</h3>
-            <p>£38</p>
-            <p class="description">Garnet Crafted with Sterling Silver for lasting beauty and quality. Perfect for your January Birthstone!</p>
-            <button class="add-to-cart" onclick="addToCart('Garnet Bracelet', 38)">
-                Add to Cart
-                <span class="caption">I wanna be yours!❤️</span> <!-- My cute caption inside the button -->
-            </button>
-            <!-- Hidden confirmation message -->
-            <div id="confirmation" style="display:none;">Item added to your cart! 😍</div>
-          </div>
-          <div class="bracelet">
-            <img src="images/amethyst-bracelet.jpg" alt="Amethyst bracelet" />
-            <h3>February – Amethyst</h3>
-            <p>£38</p>
-            <p class="description">Delicate Amethyst beads paired with Sterling Silver. Perfect for February-born dreamers 💜</p>
-            <button class="add-to-cart" onclick="addToCart('Amethyst Bracelet', 38)">
-              Add to Cart
-              <span class="caption">I wanna be yours!❤️</span>
-            </button>
-          </div>
-        </div>
-      </div>
-  </section>
-  <script>
-    function addToCart(itemName, price) {
-      const confirmation = document.createElement('div');
-      confirmation.textContent = `${itemName} (£${price}) added to your cart! 😍`;
-      confirmation.classList.add('confirmation-popup');
-      document.body.appendChild(confirmation);
-  
-      setTimeout(() => {
-        confirmation.remove();
-      }, 2000);
-    }
-  </script>
-   <section class="contact">
-    <h2>Contact Us</h2>
-    <form action="#" method="POST">
-      <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" required />
-  
-      <label for="email">Your Email:</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required />
-  
-      <label for="message">Your Message:</label>
-      <textarea id="message" name="message" rows="5" placeholder="Tell us more..." required></textarea>
-  
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-<footer class="site-footer">
-    <p>&copy; 2025 Tiny Gems ✨ Handcrafted with love & sparkle 💖</p>
-  </footer>
 
-  <script>
-    let cart = [];
-    const cartCount = document.getElementById("cart-count");
-    const box = document.querySelector(".bracelet-box");
-    const cartPopup = document.getElementById("cart-popup");
-    const cartItems = document.getElementById("cart-items");
-    
-    function addToCart(itemName, itemPrice) {
-      cart.push({ name: itemName, price: itemPrice });
-      updateCartCount();
-      animateBox();
-      updateCartDisplay();
-    }
-    
-    function updateCartCount() {
-      cartCount.textContent = cart.length;
-    }
-    
-    function animateBox() {
-      box.classList.add("open");
-      setTimeout(() => box.classList.remove("open"), 500);
-    }
-    
-    function toggleCart() {
-      cartPopup.classList.toggle("visible");
-    }
-    
-    function updateCartDisplay() {
-      cartItems.innerHTML = '';
-      cart.forEach((item) => {
-        const li = document.createElement("li");
-        li.textContent = `${item.name} - £${item.price}`;
-        cartItems.appendChild(li);
+<body>
+
+<!-- ================== NAVIGATION ================== -->
+<nav class="main-nav">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Bracelets</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ================== BRACELET BOX (CART ICON) ================== -->
+<div class="bracelet-box" onclick="toggleCart()">
+  <div class="box-lid"></div>
+  <div class="box-base">
+    <span id="cart-count" class="box-count">0</span>
+    <span class="box-label">Mine</span>
+  </div>
+</div>
+
+<!-- ================== CART POPUP ================== -->
+<div id="cart-popup" class="cart hidden">
+  <h2>My Bracelet Box 💖</h2>
+
+  <ul id="cart-items">
+    <!-- ============ Items will be dynamically added here ============ -->
+  </ul>
+
+  <div id="cart-total">Total: £0.00</div>
+
+  <!-- =============== PayPal Button inside Cart ========== -->
+  <div id="paypal-container">
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAo5s3yWfdymC0yK654RhCc8sBTSZwG4KCs9akqbNJDoUyibqACN8Z4fMQGcVe2MHkkTw4TxtHREVhj1c&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+    <div id="paypal-container-ZWNNATL4VN8U6"></div>
+    <script>
+      paypal.HostedButtons({
+        hostedButtonId: "ZWNNATL4VN8U6",
+      }).render("#paypal-container-ZWNNATL4VN8U6");
+    </script>
+  </div>
+</div>
+
+<!-- ================== SITE HEADER ================== -->
+<header class="site-header">
+  <h1 class="logo">Tiny Gems</h1>
+  <p class="tagline">Mini gemstone bracelets, Handcrafted with Love!❤️</p>
+</header>
+
+<!-- ================== ABOUT SECTION ================== -->
+<section class="about">
+  <h2>About Tiny Gems</h2>
+  <p>
+    Tiny Gems was born out of a love for the little things 🌸. Each bracelet is delicately handmade with real gemstones and finished with Sterling Silver or real gold — created to bring a little sparkle to your everyday.
+  </p>
+  <p>
+    Inspired by birthstones and the magic of tiny treasures, Tiny Gems is for those who adore minimal, meaningful jewelry that carries a story ⭐
+  </p>
+  <img src="images/garnet-bracelet.jpg" alt="Handmade bracelet process" class="about-photo" />
+</section>
+
+<!-- ================== BRACELETS LIST ================== -->
+<section class="birthstones">
+  <h2>Bracelets by Birth Month</h2>
+
+  <div class="bracelet-grid">
+
+    <!-- ========== BRACELET 1 ========== -->
+    <div class="bracelet">
+      <img src="images/garnet-bracelet.jpg"
+     alt="Garnet bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/garnet-bracelet.jpg,images/01.jpg,images/garnet-bracelet-3.jpg" />
+      <h3>January – Garnet</h3>
+      <p>£38</p>
+      <p class="description">Garnet Crafted with Sterling Silver. Perfect for your January Birthstone!❤️</p>
+      <button class="add-to-cart" onclick="addToCart('Garnet Bracelet', 38)">
+        Add to Cart
+        <span class="caption">I wanna be yours!❤️</span>
+      </button>
+    </div>
+
+    <!-- ========== BRACELET 2 ========== -->
+    <div class="bracelet">
+      <img src="images/amethyst-bracelet.jpg"
+     alt="Amethyst bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/amethyst-bracelet.jpg,images/Amethyst-bracelet2.JPG,images/amethyst-bracelet-3.jpg" />
+      <h3>February – Amethyst</h3>
+      <p>£38</p>
+      <p class="description">Delicate Amethyst beads paired with Sterling Silver. Perfect for February-born dreamers!💜</p>
+      <button class="add-to-cart" onclick="addToCart('Amethyst Bracelet', 38)">
+        Add to Cart
+        <span class="caption">I wanna be yours!💜</span>
+      </button>
+    </div>
+
+    <!-- ========== BRACELET 3 ========== -->
+    <div class="bracelet">
+      <img src="images/apatite-bracelet.jpg"
+     alt="Apatite bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/apatite-bracelet.jpg,images/Apatite-bracelet2.jpg,images/Apatite-bracelet-2.jpg" />
+      <h3>March – Apatite</h3>
+      <p>£38</p>
+      <p class="description">Delicate Apatite beads paired with Sterling Silver. Perfect for March-born dreamers!💙</p>
+      <button class="add-to-cart" onclick="addToCart('Apatite Bracelet', 38)">
+        Add to Cart
+        <span class="caption">I wanna be yours!💙</span>
+      </button>
+    </div>
+
+    <!-- ========== BRACELET 4 ========== -->
+    <div class="bracelet">
+      <img src="images/rosequarts-bracelet.jpg"
+     alt="Rosequarts bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/rosequarts-bracelet.jpg,images/rosequarts-bracelet2.jpg,images/rosequarts-bracelet3.jpg" />
+     <h3>January – Rosequarts</h3>
+     <p>£38</p>
+     <p class="description">Delicate Rosequarts beads paired with Sterling Silver. Perfect for January-born Capricorn and Aquarius Zodiac Signs!🩷</p>
+     <button class="add-to-cart" onclick="addToCart('Rosequarts Bracelet', 38)">
+       Add to Cart
+       <span class="caption">I wanna be yours!🩷</span>
+       </button>
+    </div>
+
+    <!-- ========== BRACELET 5 ========== -->
+    <div class="bracelet">
+      <img src="images/Labradorite-bracelet.jpg"
+     alt="Labradorite bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/Labradorite-bracelet.jpg,images/Labradorite-bracelet.2jpg,images/Labradorite-bracelet.3jpg" />
+     <h3>February – Labradorite</h3>
+     <p>£38</p>
+     <p class="description">Delicate Labradorite beads paired with Sterling Silver. Perfect for February-born Aquarius Zodiac Signs!❤️</p>
+     <button class="add-to-cart" onclick="addToCart('Labradorite Bracelet', 38)">
+       Add to Cart
+       <span class="caption">I wanna be yours!❤️</span>
+       </button>
+    </div>
+
+    <!-- ========== BRACELET 6 ========== -->
+    <div class="bracelet">
+      <img src="images/Moonstone-bracelet.jpg"
+     alt="Moonstone bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/Moonstone-bracelet.jpg,images/Moonstone-bracelet2.JPG,images/Moonstone-bracelet3.JPG" />
+     <h3>June – Moonstone</h3>
+     <p>£38</p>
+     <p class="description">Delicate Moonstone beads paired with Sterling Silver. Perfect for June-born Zodiac Signs!🤍</p>
+     <button class="add-to-cart" onclick="addToCart('Moonstone Bracelet', 38)">
+       Add to Cart
+       <span class="caption">I wanna be yours!🤍</span>
+       </button>
+    </div>
+
+    <!-- ========== BRACELET 7 ========== -->
+    <div class="bracelet">
+      <img src="images/Amazonite-bracelet.jpg"
+     alt="Amazonite bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/Amazonite-bracelet.JPG,images/Amazonite-bracelet2.JPG,images/Amazonite-bracelet3.JPG" />
+     <h3>June – Amazonite</h3>
+     <p>£38</p>
+     <p class="description">Delicate Amazonite beads paired with Sterling Silver. Perfect for April-born Aries Zodiac Signs!💚</p>
+     <button class="add-to-cart" onclick="addToCart('Amazonite Bracelet', 38)">
+       Add to Cart
+       <span class="caption">I wanna be yours!💚</span>
+       </button>
+    </div>
+
+    <!-- ========== BRACELET 8 ========== -->
+    <div class="bracelet">
+      <img src="images/GoldenSunstone-bracelet.jpg"
+      alt="GoldenSunstone bracelet"
+     class="bracelet-thumbnail"
+     data-images="images/GoldenSunstone-bracelet.jpg,images/goldensunstone-bracelet2.JPG,images/Goldensunstone-bracelet3.JPG" />
+     <h3>June – GoldenSunstone</h3>
+     <p>£38</p>
+     <p class="description">Delicate GoldenSunstone beads paired with Sterling Silver. Perfect for August-born Zodiac Signs!🧡</p>
+     <button class="add-to-cart" onclick="addToCart('GoldenSunstone Bracelet', 38)">
+       Add to Cart
+       <span class="caption">I wanna be yours!🧡</span>
+       </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================== CONTACT SECTION ================== -->
+<section class="contact">
+  <h2>Contact Us</h2>
+  <form action="https://formsubmit.co/TinyGemsLine@gmail.com" method="POST">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="5" placeholder="Tell us more..." required></textarea>
+
+    <input type="hidden" name="_redirect" value="javascript:void(0);">
+
+    <button type="submit">Send Message</button>
+
+  </form>
+
+    <!-- ✅ Thank You Popup outside the form -->
+    <div id="thank-you-popup" style="display: none; position: fixed; top: 30%; left: 50%; transform: translateX(-50%); background: #fff0f5; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; z-index: 1000;">
+      <p>Thank you! Your message has been sent 💌</p>
+    </div>
+  </section>
+  
+
+<!-- ================== FOOTER ================== -->
+<footer class="site-footer">
+  <p>&copy; 2025 Tiny Gems ⭐ Handcrafted with love & sparkle 💖</p>
+</footer>
+
+<!-- ================== CART FUNCTIONALITY ================== -->
+<script>
+  let cart = [];
+  const cartCount = document.getElementById("cart-count");
+  const cartPopup = document.getElementById("cart-popup");
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+
+  function addToCart(itemName, itemPrice) {
+    cart.push({ name: itemName, price: itemPrice });
+    updateCart();
+    showConfirmation(itemName);
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function updateCart() {
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+      const emptyMessage = document.createElement("p");
+      emptyMessage.textContent = "Your box is empty 💝";
+      emptyMessage.classList.add("empty-message");
+      cartItems.appendChild(emptyMessage);
+    } else {
+      cart.forEach((item, index) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        itemDiv.innerHTML = `
+          <span>${item.name} - £${item.price.toFixed(2)}</span>
+          <button class="remove-btn" onclick="removeFromCart(${index})">✖</button>
+        `;
+        cartItems.appendChild(itemDiv);
+        total += item.price;
       });
     }
-    </script>
 
+    cartCount.textContent = cart.length;
+    cartTotal.textContent = `Total: £${total.toFixed(2)}`;
+  }
 
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function toggleCart() {
+    cartPopup.classList.toggle("visible");
+    cartPopup.classList.toggle("hidden");
+  }
+
+  function showConfirmation(itemName) {
+    const confirmation = document.createElement('div');
+    confirmation.textContent = `${itemName} added to your box! 🎁`;
+    confirmation.classList.add('confirmation-popup');
+    document.body.appendChild(confirmation);
+
+    setTimeout(() => {
+      confirmation.remove();
+    }, 2000);
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+      alert("Your bracelet box is empty! 💝");
+      return;
+    }
+    alert('Ready to checkout! Please complete via PayPal.');
+  }
+</script>
+
+<!-- ================== Lightbox Modal ================== -->
+<div id="lightbox-modal" style="display: none;">
+  <div class="lightbox-overlay"></div>
+  <div class="lightbox-content">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-image" src="" alt="Bracelet preview" />
+    <div class="lightbox-controls">
+      <button id="lightbox-prev">&#10094;</button>
+      <button id="lightbox-next">&#10095;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================== LIGHTBOX SCRIPT ================== -->
+<script>
+  const thumbnails = document.querySelectorAll('.bracelet-thumbnail');
+  const modal = document.getElementById('lightbox-modal');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const closeBtn = document.querySelector('.lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+
+  let currentImages = [];
+  let currentIndex = 0;
+
+  thumbnails.forEach(thumbnail => {
+    thumbnail.addEventListener('click', () => {
+      const images = thumbnail.getAttribute('data-images').split(',');
+      currentImages = images;
+      currentIndex = 0;
+      showImage(currentImages[currentIndex]);
+      modal.style.display = 'flex';
+    });
+  });
+
+  function showImage(src) {
+    lightboxImage.src = src;
+  }
+
+  closeBtn.onclick = () => modal.style.display = 'none';
+  prevBtn.onclick = () => {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    showImage(currentImages[currentIndex]);
+  };
+  nextBtn.onclick = () => {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    showImage(currentImages[currentIndex]);
+  };
+
+  window.onclick = (e) => {
+    if (e.target.classList.contains('lightbox-overlay')) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
 </body>
 </html>
